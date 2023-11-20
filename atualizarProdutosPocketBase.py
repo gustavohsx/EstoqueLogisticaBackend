@@ -8,7 +8,7 @@ user = client.admins.auth_with_password(dados['email'], dados['senha'])
 
 # Obtendo dados atualizados do Banco de Dados Oracle
 def obterDados():
-    print('OBTENDO DADOS DO BANCO')
+    print('OBTENDO DADOS DO BANCO - ORACLE')
     connection = cx_Oracle.connect(dados['url_conn_oracle'])
     cursor = connection.cursor()
     cursor.execute("""
@@ -25,18 +25,18 @@ def obterDados():
     consulta = cursor.fetchall()
     cursor.close()
     connection.close()
-    print('DADOS OBTIDOS')
+    print('DADOS OBTIDOS - ORACLE')
     return consulta
 
 # Adicionando os dados atulizados ao Banco de Dados Pocketbase
 # 1 - Apagando todos os dados anteriores
 # 2 - Inserindo os dados atualizados
 def adicionarDadosBanco(consulta):
-    print('APAGANDO DOS ANTIGOS - POCKETBASE')
+    print('APAGANDO DADOS ANTIGOS - POCKETBASE')
     response = client.collection('produto').get_full_list()
     for produto in response:
         client.collection('produto').delete(produto.id)
-    print('DADOS APAGADOS')
+    print('DADOS APAGADOS - POCKETBASE')
     print('INSERINDO DADOS - POCKETBASE')
     for produto in consulta:
         codprod, descricao, embalagem, unidade, codfab, pesoliq, pesobruto, modulo, rua, numero, apto, \
@@ -76,10 +76,10 @@ def adicionarDadosBanco(consulta):
             "qtdisponivel" : qtdisponivel,
             "dtultent": dtultent
         })
-    print('DADOS INSERIDOS')
+    print('DADOS INSERIDOS - POCKETBASE')
 
 def atualizarBanco():
-    print('INICIANDO')
+    print('INICIADO')
     adicionarDadosBanco(obterDados())
     print('FINALIZADO')
 
