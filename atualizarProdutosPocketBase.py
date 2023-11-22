@@ -16,12 +16,12 @@ def obterDados():
                     p.pesobruto, p.modulo, p.rua, p.numero, p.apto, p.tipoalturapalete, p.alturapal,
                     p.lastropal, p.qttotpal, p.alturam3, p.larguram3, p.comprimentom3, p.volume,
                     p.gtincodauxiliartrib, p.codauxiliartrib, p.gtincodauxiliar, p.codauxiliar,
-                    p.gtincodauxiliar2, e.qtestger, e.qtindeniz, 
+                    p.gtincodauxiliar2, p.codauxiliar2, e.qtestger, e.qtindeniz, 
                     (NVL(e.qtbloqueada, 0) - NVL(e.qtindeniz, 0)) AS qtbloqueada, e.qtreserv,
                     (PKG_ESTOQUE.ESTOQUE_DISPONIVEL(e.CODPROD, e.CODFILIAL, 'V', NULL, 'S')) AS qtdisponivel, 
                     TO_CHAR(e.dtultent, 'DD/MM/YYYY') AS dtultent
                     FROM pcprodut p JOIN pcest e ON p.codprod = e.codprod
-                    WHERE e.codfilial = 1 AND p.modulo = 1 AND p.rua < 51  AND p.obs2 <> 'FL'""")
+                    WHERE e.codfilial = 1 AND p.modulo = 1 AND p.rua < 51""")
     consulta = cursor.fetchall()
     cursor.close()
     connection.close()
@@ -41,7 +41,7 @@ def adicionarDadosBanco(consulta):
     for produto in consulta:
         codprod, descricao, embalagem, unidade, codfab, pesoliq, pesobruto, modulo, rua, numero, apto, \
             tipoalturapalete, alturapal, lastropal, qttotpal, alturam3, larguram3, comprimentom3, volume, \
-                gtincodauxiliartrib, codauxiliartrib, gtincodauxiliar, codauxiliar, gtincodauxiliar2, qtestger, \
+                gtincodauxiliartrib, codauxiliartrib, gtincodauxiliar, codauxiliar, gtincodauxiliar2, codauxiliar2, qtestger, \
                     qtindeniz, qtbloqueada, qtreserv, qtdisponivel, dtultent = produto
         
         client.collection('produto').create({
@@ -69,6 +69,7 @@ def adicionarDadosBanco(consulta):
             "gtincodauxiliar" : gtincodauxiliar,
             "codauxiliar" : codauxiliar,
             "gtincodauxiliar2" : gtincodauxiliar2,
+            "codauxiliar2" : codauxiliar2,
             "qtestger" : qtestger,
             "qtindeniz" : qtindeniz,
             "qtbloqueada" : qtbloqueada,
