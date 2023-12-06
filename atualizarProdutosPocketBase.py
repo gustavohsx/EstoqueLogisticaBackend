@@ -9,7 +9,7 @@ user = client.admins.auth_with_password(dados['email'], dados['senha'])
 # Obtendo dados atualizados do Banco de Dados Oracle
 def obterDados():
     print('OBTENDO DADOS DO BANCO - ORACLE')
-    connection = cx_Oracle.connect(dados['url_conn_oracle'])
+    connection = cx_Oracle.connect(dados['url_conn_azul'])
     cursor = connection.cursor()
     cursor.execute("""
                 SELECT p.codprod, p.descricao, p.embalagem, p.unidade, p.codfab, p.pesoliq, 

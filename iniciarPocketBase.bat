@@ -1,0 +1,2 @@
+@echo
+.\PocketBase\pocketbase serve
